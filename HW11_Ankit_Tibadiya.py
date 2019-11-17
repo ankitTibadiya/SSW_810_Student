@@ -16,10 +16,10 @@ DB_File = '/home/ankit/Desktop/Stevens/Semester 3/SSW-810/Assignments/HW11/HW11_
 
 db = sqlite3.connect(DB_File)
 
-query = "Select CWID, Name, Dept, Course, count(Student_CWID) as num_of_students \
-from HW11_instructors join HW11_grades on HW11_grades.Instructor_CWID = CWID \
-group by Course \
-order by CWID desc, num_of_students desc"
+query = "select CWID,Name,Dept,Course,count(StudentCWID) as num_of_students \
+from HW11_instructors join HW11_grades on CWID = InstructorCWID \
+group by CWID,Name,Dept,Course \
+ORDER BY CWID desc, num_of_students desc"
 
 pt = PrettyTable(
     field_names=['CWID', 'Name', 'Dept', 'Course', 'Students'])
