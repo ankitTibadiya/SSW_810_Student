@@ -3,9 +3,7 @@
 """
 Created on :
 @author: Ankit Tibadiya
-    Implement a class Fraction that supports addition, subtraction, multiplication and division and \
-        also support not equal, less than, less than or equal, greater than or equal for the fractions to be compared
-"""
+    """
 
 """ Import required packages"""
 
@@ -267,8 +265,8 @@ class Repository:
     def instructors_Table_Flask_web(self, DB_File):
         app = Flask(__name__)
 
-        @app.route('/instructor_table')
-        def instructor_table():
+        @app.route('/instructors')
+        def instructors():
             try:
                 db = sqlite3.connect(DB_File)
             except sqlite3.OperationalError:
@@ -284,25 +282,30 @@ class Repository:
 
                 db.close()
 
-            return render_template('instructor_table.html',
-                                   title='Stevens Repository',
-                                   table_title="Instructor Table",
-                                   instructors=data)
+                return render_template('instructor_table.html',
+                                       title='Stevens Repository',
+                                       table_title="Instructor Table",
+                                       instructors=data)
 
         app.run(debug=True)
 
 
 def main():
-    stevens = Repository(
-        '/home/ankit/Desktop/Stevens/Semester 3/SSW-810/Assignments/HW12')
+    try:
+        stevens = Repository(
+            '/home/ankit/Desktop/Stevens/Semester 3/SSW-810/Assignments/HW-12')
 
-    stevens.major_prettyTable()
-    stevens.students_prettyTable()
-    stevens.instructors_prettyTable()
+        stevens.major_prettyTable()
+        stevens.students_prettyTable()
+        stevens.instructors_prettyTable()
 
-    DB_File = '/home/ankit/Desktop/Stevens/Semester 3/SSW-810/Assignments/HW12/HW12_db.db'
-    stevens.instructors_prettyTable_db(DB_File)
-    stevens.instructors_Table_Flask_web(DB_File)
+        DB_File = '/home/ankit/Desktop/Stevens/Semester 3/SSW-810/Assignments/HW-12/HW12_db.db'
+        stevens.instructors_prettyTable_db(DB_File)
+        stevens.instructors_Table_Flask_web(DB_File)
+    except ValueError as e:
+        print(f'Error: {e}')
+    except FileNotFoundError as e:
+        print(f'Error: {e}')
 
 
 if __name__ == '__main__':
